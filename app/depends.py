@@ -7,11 +7,11 @@ from app.database.db import get_db
 from app.services.QuestionService import QuestionService
 
 
-def get_menu_crud(db: Annotated[AsyncSession, Depends(get_db)]):
+def get_question_crud(db: Annotated[AsyncSession, Depends(get_db)]):
     return QuestionCrud(db)
 
 
-def get_menu_service(
-        crud: Annotated[QuestionCrud, Depends(get_menu_crud)],
+def get_question_service(
+        crud: Annotated[QuestionCrud, Depends(get_question_crud)],
 ):
     return QuestionService(crud)

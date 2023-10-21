@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, Body
 from typing import Annotated, Union
 
-from app.depends import get_menu_service
+from app.depends import get_question_service
 from app.schemas.QuestionSchemas import QuestGet, QuestCreate, Message404, QuestReturn
 from app.services.QuestionService import QuestionService
 
@@ -22,7 +22,7 @@ async def create_menu(
                 "questions_num": 1,
             }
         )],
-        quest_service: Annotated[QuestionService, Depends(get_menu_service)],
+        quest_service: Annotated[QuestionService, Depends(get_question_service)],
 ):
     """
     Загрузить вопросы с удаленного ресурса \n
@@ -39,7 +39,7 @@ async def create_menu(
 )
 async def read_menu(
         question_id: int,
-        quest_service: Annotated[QuestionService, Depends(get_menu_service)],
+        quest_service: Annotated[QuestionService, Depends(get_question_service)],
 ):
     """Получить вопрос по id"""
     return await quest_service.get_question_by_id(question_id)
@@ -53,7 +53,7 @@ async def read_menu(
 
 )
 async def get_all_questions(
-        quest_service: Annotated[QuestionService, Depends(get_menu_service)],
+        quest_service: Annotated[QuestionService, Depends(get_question_service)],
 ):
     """Получить список всех вопросов"""
     return await quest_service.get_questions()
